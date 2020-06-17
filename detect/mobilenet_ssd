@@ -1,0 +1,23 @@
+#coding: utf-8
+import cv2
+
+
+
+#获得图片
+imagepath=r"D:\dataanalyst\ps\image\mydetect\data\detectdata\1.jpg"
+image=cv2.imread(imagepath)
+print("----------printing image----------")
+print(image)
+protopath = r"D:\dataanalyst\ps\image\mydetect\checkpoint\ssd-mobilenet\MobileNetSSD_deploy.prototxt"
+modelpath = r"D:\dataanalyst\ps\image\mydetect\checkpoint\ssd-mobilenet\MobileNetSSD_deploy.caffemodel"
+
+#加载模型
+net=cv2.dnn.readNetFromCaffe(protopath, modelpath)
+#识别
+imageinput=cv2.dnn.blobFromImage(cv2.resize(image,(255,255)),0.007843,(255,255),127.5)
+net.setInput(imageinput)
+detections=net.forward()
+print("---printing  detection--------")
+print(detections)
+
+
